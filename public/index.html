@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Azul Cred | Simulação</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="hero">
+    <div class="logo">
+      <img src="/img/logo.png" alt="Azul Cred">
+      <h1 class="title">Simulação de Crédito</h1>
+    </div>
+  </header>
+
+  <main class="container">
+    <h2>Preencha seus dados</h2>
+    <p class="helper-text">Campos com * são obrigatórios</p>
+
+    <form id="formLead">
+      <!-- Identificação -->
+      <section class="section">
+        <h3>Identificação</h3>
+        <div class="form-grid grid-3">
+          <div class="field col-3">
+            <label for="nome">Nome completo *</label>
+            <input id="nome" name="nome" placeholder="Seu nome" required>
+          </div>
+
+          <div class="field col-1">
+            <label for="cpf">CPF *</label>
+            <input id="cpf" name="cpf" placeholder="00000000000" required>
+          </div>
+
+          <div class="field col-1">
+            <label for="telefone">Telefone / WhatsApp *</label>
+            <input id="telefone" name="telefone" placeholder="(00) 00000-0000" required>
+          </div>
+
+          <div class="field col-1">
+            <label for="banco_recebe">Banco que recebe</label>
+            <input id="banco_recebe" name="banco_recebe" placeholder="Ex: Banco do Brasil">
+          </div>
+        </div>
+      </section>
+
+      <!-- Renda / Vínculo -->
+      <section class="section">
+        <h3>Renda / Vínculo</h3>
+        <div class="form-grid grid-2">
+          <div class="field col-2">
+            <label for="fonte_renda">Tipo *</label>
+            <select id="fonte_renda" name="fonte_renda" required>
+              <option value="Aposentado_INSS">Aposentado INSS</option>
+              <option value="Servidor_Federal">Servidor Federal</option>
+              <option value="Servidor_Estadual">Servidor Estadual</option>
+              <option value="Servidor_Municipal">Servidor Municipal</option>
+            </select>
+          </div>
+          <div class="field col-2">
+            <label for="matricula">Comprovação (Matrícula / Nº Benefício)</label>
+            <input id="matricula" name="matricula" placeholder="Informe o número">
+          </div>
+        </div>
+      </section>
+      <!-- Intenção e Simulação -->
+      <section class="section">
+        <h3>Intenção e Simulação</h3>
+        <div class="form-grid grid-3">
+          <div class="field col-3">
+            <label for="motivo">Motivo do empréstimo</label>
+            <textarea id="motivo" name="motivo" rows="3" placeholder="Ex: quitar dívidas, reforma, etc."></textarea>
+          </div>
+          <div class="field col-1">
+            <label for="valor_desejado">Valor desejado</label>
+            <input id="valor_desejado" name="valor_desejado" placeholder="Ex: 10000">
+          </div>
+          <div class="field col-1">
+            <label for="parcelas">Quantidade de parcelas</label>
+            <input id="parcelas" name="parcelas" placeholder="Ex: 24">
+          </div>
+          <div class="field col-1">
+            <label for="valor_parcela">Valor da parcela</label>
+            <input id="valor_parcela" name="valor_parcela" placeholder="Ex: 450,00">
+          </div>
+        </div>
+      </section>
+
+      <button type="submit">Continuar</button>
+    </form>
+  </main>
+
+  <footer class="footer">
+    <p>© <span id="currentYear"></span> Azul Cred. Todos os direitos reservados.</p>
+    <p>
+      WhatsApp: (77) 98816-7901
+      <a href="https://api.whatsapp.com/send?phone=5577988167901" target="_blank" rel="noopener">Falar agora</a>
+    </p>
+  </footer>
+
+  <script src="/js/script.js"></script>
+  <script>
+    // Ano atual no footer
+    const yearEl = document.getElementById('currentYear');
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
+
