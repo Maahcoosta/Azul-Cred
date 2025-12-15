@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Finalizado</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="container msg-final">
+    <h2>Solicitação enviada</h2>
+    <p>A sua solicitação foi para análise e em breve um de nossos atendentes entrará em contato.</p>
+    <p>Dúvidas? WhatsApp: (77) 98816-7901</p>
+    <div class="actions">
+      <button onclick="openWhatsApp()">
+        Falar no WhatsApp
+      </button>
+      <button class="secondary" onclick="window.location.href='/index.html'">
+        Voltar ao início
+      </button>
+    </div>
+  </div>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get('id');
+    let lead = null;
+
+    if (id) {
+      fetch(`/api/leads/${id}`)
+        .then(r => r.json())
+        .then(data => { lead = data; })
+        .catch(() => { lead = null; });
+    }
+
+    function openWhatsApp() {
+      const phone = '5577988167901';
+      const dados = lead || {};
+      const mensagem = `Olá Azul Cred, acabei de enviar minha solicitação no site. Seguem os dados:
+Nome: ${dados.nome || '-'}
+CPF: ${maskCpf(dados.cpf)}
+Telefone: ${maskPhone(dados.telefone)}
+Banco: ${dados.banco_recebe || '-'}
+Fonte de renda: ${dados.fonte_renda || '-'}
+Matrícula: ${dados.matricula || '-'}
+Motivo: ${dados.motivo || '-'}
+Valor desejado: ${formatCurrency(dados.valor_desejado)}
+Parcelas: ${dados.parcelas || '-'}
+Valor da parcela: ${formatCurrency(dados.valor_parcela)}`;
+      const url = `https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(mensagem)}`;
+      window.open(url, '_blank');
+    }
+
+    function maskCpf(cpf) {
+      if (!cpf) return '-';
+      return cpf.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})$/, '$1.$2.$3-$4');
+    }
+
+    function maskPhone(tel) {
+      if (!tel) return '-';
+      const digits = tel.replace(/\D/g, '').slice(0, 11);
+      if (digits.length === 11) return digits.replace(/^(\d{2})(\d{5})(\d{4})$/, '($1) $2-$3');
+      if (digits.length === 10) return digits.replace(/^(\d{2})(\d{4})(\d{4})$/, '($1) $2-$3');
+      return tel;
+    }
+
+    function formatCurrency(v) {
+      if (v === null || v === undefined || v === '') return '-';
+      const num = Number(v);
+      if (Number.isNaN(num)) return v;
+      return num.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    }
+  </script>
+</body>
+</html>
+
