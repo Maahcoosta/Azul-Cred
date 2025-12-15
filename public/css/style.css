@@ -116,6 +116,15 @@ button.secondary { background: #2c2f3a; }
 }
 .footer a:hover { text-decoration: underline; }
 
+/* Grade da tela de confirmação */
+.resume-grid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 10px;
+}
+.resume-grid .full { grid-column: 1 / -1; }
+.resume-grid p { margin: 0; }
 
 @media (max-width: 640px) {
   .resume-grid {
